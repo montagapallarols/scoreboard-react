@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Player from "../Player/Player";
-import AddPlayerForm from "../AddPlayerForm";
+import AddPlayerForm from "../AddPlayer";
 import "./Scoreboard.scss";
 
 function compare_score(player_a, player_b) {
@@ -68,6 +68,18 @@ export default function Scoreboard() {
     set_players(updatedPlayers);
   };
 
+  const addPlayerCallback = (name) => {
+    const newGuy = {
+      id: players.length + 1,
+      name,
+      score: 0, // == 0
+    };
+
+    const extraPlayerArray = [...players, newGuy];
+    set_players(extraPlayerArray);
+  };
+  console.log(players);
+
   return (
     <div className="Scoreboard">
       <h2>Player's scores:</h2>
@@ -92,7 +104,7 @@ export default function Scoreboard() {
           <option value="name">Sort by name</option>
         </select>
       </p>
-      <AddPlayerForm />
+      <AddPlayerForm addPlayerCallback={addPlayerCallback} />
       <button onClick={resetScores}>Reset scores</button>
     </div>
   );

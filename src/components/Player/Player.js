@@ -7,10 +7,6 @@ export default function Player(props) {
     props.incrementScore(props.id);
   }
 
-  function onClickReset() {
-    props.resetIndividualScore();
-  }
-
   const { name: fullName, score, id, resetOnePlayer } = props;
   return (
     <div>
