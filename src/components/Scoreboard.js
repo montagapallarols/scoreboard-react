@@ -6,6 +6,10 @@ function compare_score(player_a, player_b) {
   return player_b.score - player_a.score;
 }
 
+function compare_name(player_a, player_b) {
+  return player_a.name.localeCompare(player_b.name);
+}
+
 export default function Scoreboard() {
   const [players, set_players] = useState([
     { id: 1, name: "Violeta", score: 11 },
@@ -14,11 +18,17 @@ export default function Scoreboard() {
     { id: 4, name: "Lisa", score: 42 },
   ]);
 
+  const [sort_by, set_sort_by] = useState("score");
+
   const players_sorted =
-    // first "copy" the array
-    [...players]
-      // then sort it with the `compare_score` callback function
-      .sort(compare_score);
+    sort_by === "score"
+      ? [...players].sort(compare_score)
+      : [...players].sort(compare_name);
+
+  function change_sorting(event) {
+    console.log("new sort order:", event.target.value);
+    set_sort_by(event.target.value);
+  }
 
   return (
     <div className="Scoreboard">
@@ -30,6 +40,13 @@ export default function Scoreboard() {
           );
         })}
       </ul>
+      <p>
+        Sort order:{" "}
+        <select onChange={change_sorting} value={sort_by}>
+          <option value="score">Sort by score</option>
+          <option value="name">Sort by name</option>
+        </select>
+      </p>
       <AddPlayerForm />
     </div>
   );
