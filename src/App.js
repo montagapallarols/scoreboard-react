@@ -1,6 +1,7 @@
 import React from "react";
 import Title from "./components/Title";
-import Scoreboard from "./components/Scoreboard";
+import Scoreboard from "./components/Scoreboard/Scoreboard";
+import "./App.scss";
 
 function App() {
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Player from "./Player";
-import AddPlayerForm from "./AddPlayerForm";
+import Player from "../Player/Player";
+import AddPlayerForm from "../AddPlayerForm";
+import "./Scoreboard.scss";
 
 function compare_score(player_a, player_b) {
   return player_b.score - player_a.score;
@@ -59,9 +60,16 @@ export default function Scoreboard() {
     set_players(updatedPlayers);
   }
 
+  const resetOnePlayer = (id) => {
+    console.log("guy to reset", id);
+    const updatedPlayers = players.map((p) =>
+      p.id === id ? { ...p, score: 0 } : p
+    );
+    set_players(updatedPlayers);
+  };
+
   return (
     <div className="Scoreboard">
-      <button onClick={resetScores}>Reset scores</button>
       <h2>Player's scores:</h2>
       <ul>
         {players_sorted.map(function (player) {
@@ -72,6 +80,7 @@ export default function Scoreboard() {
               name={player.name}
               score={player.score}
               incrementScore={incrementScore}
+              resetOnePlayer={resetOnePlayer}
             />
           );
         })}
@@ -84,6 +93,7 @@ export default function Scoreboard() {
         </select>
       </p>
       <AddPlayerForm />
+      <button onClick={resetScores}>Reset scores</button>
     </div>
   );
 }
